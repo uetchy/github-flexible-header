@@ -43,7 +43,7 @@ var defaultElements = {
     html: $(container).find('a.header-logo-invertocat')[0],
     create: function(options) {
       var element = this.html.cloneNode(true);
-      if (options.icon) {
+      if (options && options.hasOwnProperty('icon')) {
         var icon = element.querySelector('.mega-octicon');
         icon.className = 'mega-octicon octicon-' + options.icon;
         icon.styles = {
@@ -112,7 +112,7 @@ var defaultElements = {
       var link = element.find('a');
       link.attr('href', options.href);
 
-      if (options.icon) {
+      if (options.hasOwnProperty('icon')) {
         link.addClass('tooltipped');
         link.addClass('tooltipped-s');
         link.attr('aria-label', options.label);
