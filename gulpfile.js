@@ -68,8 +68,8 @@ gulp.task('copy', function() {
 });
 
 gulp.task('archive', ['scripts', 'copy', 'manifest-production'], function() {
-  var manifest = require('./app/manifest.json'),
-    distFileName = 'github-flexible-header' + '_v' + manifest.version + '.zip'
+  var npmPackage = require('./package.json')
+  var distFileName = npmPackage.name + '_v' + npmPackage.version + '.zip'
 
   gulp.src(['build/**', '!build/scripts/**/*.map'])
     .pipe(zip(distFileName))
