@@ -2,17 +2,19 @@
 
 var defaultConfigJson = JSON.stringify([
   'gh:logo',
-  'gh:search',
-  {'gh:nav': [
-    'gh:pull-request',
-    'gh:issues',
-    'gh:gist'
-  ]},
-  {'gh:user-nav': [
-    'gh:notifications',
-    'gh:new',
-    'gh:user'
-  ]}
+  'gh:search', {
+    'gh:nav': [
+      'gh:pull-request',
+      'gh:issues',
+      'gh:gist'
+    ]
+  }, {
+    'gh:user-nav': [
+      'gh:notifications',
+      'gh:new',
+      'gh:user'
+    ]
+  }
 ], null, 2);
 
 function notify(text) {

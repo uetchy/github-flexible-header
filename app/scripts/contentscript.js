@@ -4,22 +4,24 @@ var $ = require('jquery');
 var container = document.querySelector('.header > .container');
 var defaultConfigJson = JSON.stringify([
   'gh:logo',
-  'gh:search',
-  {'gh:nav': [
-    'gh:pull-request',
-    'gh:issues',
-    'gh:gist'
-  ]},
-  {'gh:user-nav': [
-    'gh:notifications',
-    'gh:new',
-    'gh:user'
-  ]}
+  'gh:search', {
+    'gh:nav': [
+      'gh:pull-request',
+      'gh:issues',
+      'gh:gist'
+    ]
+  }, {
+    'gh:user-nav': [
+      'gh:notifications',
+      'gh:new',
+      'gh:user'
+    ]
+  }
 ], null, 2);
 var defaultElements = {
   'gh:nav': {
     html: $(container).find('ul.header-nav.left')[0],
-    create: function(children){
+    create: function(children) {
       var element = this.html;
       element.innerHTML = '';
       appendTo(element, children);
@@ -29,7 +31,7 @@ var defaultElements = {
 
   'gh:user-nav': {
     html: $(container).find('ul.header-nav.user-nav.right')[0],
-    create: function(children){
+    create: function(children) {
       var element = this.html;
       element.innerHTML = '';
       appendTo(element, children);
@@ -39,7 +41,7 @@ var defaultElements = {
 
   'gh:logo': {
     html: $(container).find('a.header-logo-invertocat')[0],
-    create: function(options){
+    create: function(options) {
       var element = this.html.cloneNode(true);
       if (options.icon) {
         var icon = element.querySelector('.mega-octicon');
@@ -57,55 +59,55 @@ var defaultElements = {
 
   'gh:search': {
     html: $(container).find('div.site-search')[0],
-    create: function(){
+    create: function() {
       return this.html.cloneNode(true);
     }
   },
 
   'gh:pull-request': {
     html: $(container).find('li:has(a[href="/pulls"])')[0],
-    create: function(){
+    create: function() {
       return this.html.cloneNode(true);
     }
   },
 
   'gh:issues': {
     html: $(container).find('li:has(a[href="/issues"])')[0],
-    create: function(){
+    create: function() {
       return this.html.cloneNode(true);
     }
   },
 
   'gh:gist': {
     html: $(container).find('li:has(a[href="https://gist.github.com/"])')[0],
-    create: function(){
+    create: function() {
       return this.html.cloneNode(true);
     }
   },
 
   'gh:notifications': {
     html: $(container).find('li:has(a[href="/notifications"])')[0],
-    create: function(){
+    create: function() {
       return this.html.cloneNode(true);
     }
   },
 
   'gh:new': {
     html: $(container).find('li:has(a[href="/new"])')[0],
-    create: function(){
+    create: function() {
       return this.html.cloneNode(true);
     }
   },
 
   'gh:user': {
     html: $(container).find('li:has(a.header-nav-link.name)')[0],
-    create: function(){
+    create: function() {
       return this.html.cloneNode(true);
     }
   },
 
   'link': {
-    create: function(options){
+    create: function(options) {
       var element = $('<li class="header-nav-item"><a class="header-nav-link"></a></li>');
       var link = element.find('a');
       link.attr('href', options.href);
@@ -128,7 +130,7 @@ var defaultElements = {
 
 function appendTo(root, nodes) {
   for (let node of nodes) {
-    switch(typeof(node)) {
+    switch (typeof(node)) {
       case 'string':
         root.appendChild(defaultElements[node].create());
         break;
@@ -153,6 +155,6 @@ function run(config) {
 
 chrome.storage.sync.get({
   'configJson': defaultConfigJson
-}, function(items){
+}, function(items) {
   run(JSON.parse(items.configJson));
 });

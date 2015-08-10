@@ -1,5 +1,5 @@
 {
-	"node": true,
+  "node": true,
   "browser": true,
   "mocha": true,
   "esnext": true,
@@ -16,9 +16,9 @@
   "quotmark": true,
   "undef": true,
   "unused": true,
-	"strict": true,
-	"browser": true,
-	"globals" : {
+  "strict": true,
+  "browser": true,
+  "globals": {
     "chrome": true
   }
 }
