@@ -2,8 +2,16 @@
 
 Customize Github header items in JSON.
 
+Available at [Chrome Web Store](https://chrome.google.com/webstore/detail/github-flexible-header/klnjbcfjjlikldnnkfflnhcaimapgglf).
+
+## Screenshots
+
 ![Screenshot](http://randompaper.co.s3.amazonaws.com/gfh-ss1.png)
 ![Screenshot](http://randompaper.co.s3.amazonaws.com/gfh-ss2.png)
+
+## JSON Examples
+
+This will add __Personal Access Tokens__ and __Starred repositories__ links.
 
 ```json
 [
@@ -29,4 +37,12 @@ Customize Github header items in JSON.
     "gh:user"
   ]}
 ]
+```
+
+## Build & Archive extension
+
+```
+$ npm install
+$ npm start # start watching files
+$ npm run archive # generate extension file into /pkg
 ```
