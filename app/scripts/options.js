@@ -1,3 +1,18 @@
+var defaultConfigJson = JSON.stringify([
+  "gh:logo",
+  "gh:search",
+  {"gh:nav": [
+    "gh:pull-request",
+    "gh:issues",
+    "gh:gist"
+  ]},
+  {"gh:user-nav": [
+    "gh:notifications",
+    "gh:new",
+    "gh:user"
+  ]}
+], null, 2);
+
 function notify(text) {
   var status = document.getElementById('status');
   status.textContent = text;
@@ -20,7 +35,6 @@ function save_options() {
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function restore_options() {
-  var defaultConfigJson = document.getElementById('defaultConfigJson').innerHTML;
   chrome.storage.sync.get({
     configJson: defaultConfigJson
   }, function(items) {
@@ -29,7 +43,6 @@ function restore_options() {
 }
 
 function reset_options() {
-  var defaultConfigJson = document.getElementById('defaultConfigJson').innerHTML;
   document.getElementById('configJson').value = defaultConfigJson;
   save_options();
 }

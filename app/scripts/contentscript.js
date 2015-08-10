@@ -98,13 +98,25 @@ var defaultElements = {
     }
   }
 }
+var defaultConfigJson = JSON.stringify([
+  "gh:logo",
+  "gh:search",
+  {"gh:nav": [
+    "gh:pull-request",
+    "gh:issues",
+    "gh:gist"
+  ]},
+  {"gh:user-nav": [
+    "gh:notifications",
+    "gh:new",
+    "gh:user"
+  ]}
+], null, 2);
 
-chrome.storage.sync.get('configJson', function(items){
-  var config = JSON.parse(items.configJson);
-
-  if (config) {
-    run(config);
-  }
+chrome.storage.sync.get({
+  'configJson': defaultConfigJson
+}, function(items){
+  run(JSON.parse(items.configJson));
 });
 
 function run(config) {
