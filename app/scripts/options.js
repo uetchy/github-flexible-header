@@ -1,15 +1,17 @@
+'use strict';
+
 var defaultConfigJson = JSON.stringify([
-  "gh:logo",
-  "gh:search",
-  {"gh:nav": [
-    "gh:pull-request",
-    "gh:issues",
-    "gh:gist"
+  'gh:logo',
+  'gh:search',
+  {'gh:nav': [
+    'gh:pull-request',
+    'gh:issues',
+    'gh:gist'
   ]},
-  {"gh:user-nav": [
-    "gh:notifications",
-    "gh:new",
-    "gh:user"
+  {'gh:user-nav': [
+    'gh:notifications',
+    'gh:new',
+    'gh:user'
   ]}
 ], null, 2);
 
@@ -22,7 +24,7 @@ function notify(text) {
 }
 
 // Saves options to chrome.storage.sync.
-function save_options() {
+function saveOptions() {
   var configJson = document.getElementById('configJson').value;
   chrome.storage.sync.set({
     configJson: configJson
@@ -34,7 +36,7 @@ function save_options() {
 
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
-function restore_options() {
+function restoreOptions() {
   chrome.storage.sync.get({
     configJson: defaultConfigJson
   }, function(items) {
@@ -42,11 +44,11 @@ function restore_options() {
   });
 }
 
-function reset_options() {
+function resetOptions() {
   document.getElementById('configJson').value = defaultConfigJson;
-  save_options();
+  saveOptions();
 }
 
-document.addEventListener('DOMContentLoaded', restore_options);
-document.getElementById('save').addEventListener('click', save_options);
-document.getElementById('reset').addEventListener('click', reset_options);
+document.addEventListener('DOMContentLoaded', restoreOptions);
+document.getElementById('save').addEventListener('click', saveOptions);
+document.getElementById('reset').addEventListener('click', resetOptions);

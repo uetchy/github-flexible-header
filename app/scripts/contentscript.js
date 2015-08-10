@@ -1,5 +1,21 @@
+'use strict';
+
 var $ = require('jquery');
 var container = document.querySelector('.header > .container');
+var defaultConfigJson = JSON.stringify([
+  'gh:logo',
+  'gh:search',
+  {'gh:nav': [
+    'gh:pull-request',
+    'gh:issues',
+    'gh:gist'
+  ]},
+  {'gh:user-nav': [
+    'gh:notifications',
+    'gh:new',
+    'gh:user'
+  ]}
+], null, 2);
 var defaultElements = {
   'gh:nav': {
     html: $(container).find('ul.header-nav.left')[0],
@@ -97,27 +113,23 @@ var defaultElements = {
       return element[0];
     }
   }
-}
-var defaultConfigJson = JSON.stringify([
-  "gh:logo",
-  "gh:search",
-  {"gh:nav": [
-    "gh:pull-request",
-    "gh:issues",
-    "gh:gist"
-  ]},
-  {"gh:user-nav": [
-    "gh:notifications",
-    "gh:new",
-    "gh:user"
-  ]}
-], null, 2);
+};
 
-chrome.storage.sync.get({
-  'configJson': defaultConfigJson
-}, function(items){
-  run(JSON.parse(items.configJson));
-});
+function appendTo(root, nodes) {
+  for (let node of nodes) {
+    switch(typeof(node)) {
+      case 'string':
+        root.appendChild(defaultElements[node].create());
+        break;
+      case 'object':
+        var key = Object.keys(node)[0]; // gh:user-nav ... custom
+        var options = node[key]; // Array of gh:new ...
+
+        root.appendChild(defaultElements[key].create(options));
+        break;
+    }
+  }
+}
 
 function run(config) {
   // Clear container
@@ -127,20 +139,9 @@ function run(config) {
   appendTo(container, config);
 }
 
-function appendTo(root, nodes) {
-  for (let node of nodes) {
-    switch(typeof(node)) {
-      case 'string':
-        var element = defaultElements[node];
-        root.appendChild(element.create());
-        break;
-      case 'object':
-        var key = Object.keys(node)[0]; // gh:user-nav ... custom
-        var options = node[key]; // Array of gh:new ...
 
-        var element = defaultElements[key].create(options);
-        root.appendChild(element);
-        break;
-    }
-  }
-}
+chrome.storage.sync.get({
+  'configJson': defaultConfigJson
+}, function(items){
+  run(JSON.parse(items.configJson));
+});
