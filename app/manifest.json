@@ -21,16 +21,14 @@
     "page": "options.html",
     "chrome_style": true
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "http://github.com/*",
-        "https://github.com/*"
-      ],
-      "js": [
-        "scripts/contentscript.js"
-      ],
-      "run_at": "document_end"
-    }
-  ]
+  "content_scripts": [{
+    "matches": [
+      "http://github.com/*",
+      "https://github.com/*"
+    ],
+    "js": [
+      "scripts/contentscript.js"
+    ],
+    "run_at": "document_end"
+  }]
 }

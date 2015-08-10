@@ -9,6 +9,7 @@ var source = require('vinyl-source-stream');
 var babelify = require('babelify');
 var manifest = require('gulp-chrome-manifest');
 var livereload = require('gulp-livereload');
+var gulpif = require('gulp-if');
 
 // clean build directory
 gulp.task('clean', function(cb) {
@@ -27,20 +28,21 @@ gulp.task('copy', function() {
 
 gulp.task('manifest', function() {
   gulp.src('app/manifest.json')
+    .pipe(gulp.dest('build/'))
+    .pipe(livereload());
+});
+
+gulp.task('manifest-production', function() {
+  gulp.src('app/manifest.json')
     .pipe(manifest({
-      buildnumber: true,
       background: {
-        target: 'scripts/background.js',
-        exclude: [
-          'scripts/chromelivereload.js'
-        ]
+        target: 'scripts/background.js'
       }
     }))
     .pipe(gulp.dest('build/'))
-    .pipe(livereload());;
 });
 
-gulp.task('archive', ['scripts', 'copy', 'manifest'], function() {
+gulp.task('archive', ['scripts', 'copy', 'manifest-production'], function() {
   var manifest = require('./app/manifest.json'),
     distFileName = 'flex-github-header' + ' v' + manifest.version + '.zip'
 
@@ -55,17 +57,15 @@ gulp.task('scripts', function() {
   buildScript('background.js', false);
 });
 
-gulp.task('build', ['scripts', 'copy', 'manifest']);
-
-gulp.task('watch', function() {
+gulp.task('watch', ['scripts', 'copy', 'manifest'], function() {
   livereload.listen();
   buildScript('contentscript.js', true);
   buildScript('options.js', true);
   buildScript('background.js', true);
   gulp.watch([
     'app/options.html',
-    'app/icons/*',
-    'app/_locales/**/*'
+    'app/icons/*.png',
+    'app/_locales/**/*.json'
   ], ['copy']);
 });
 
@@ -95,7 +95,7 @@ function buildScript(file, watch) {
       .on('error', handleErrors)
       .pipe(source(file))
       .pipe(gulp.dest('build/scripts'))
-      .pipe(livereload());
+      .pipe(gulpif(watch, livereload()));
   }
   bundler.on('update', function() {
     rebundle();
