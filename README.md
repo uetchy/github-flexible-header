@@ -2,7 +2,7 @@
 
 Customize Github header items in JSON.
 
-![Screenshot](http://randompaper.co.s3.amazonaws.com/fgh-ss1.png)
+![Screenshot](http://randompaper.co.s3.amazonaws.com/gfh-ss1.png)
 
 ```json
 [
