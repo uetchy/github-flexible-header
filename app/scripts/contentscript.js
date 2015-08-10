@@ -51,7 +51,7 @@ var defaultElements = {
           width: '28px',
           height: '28px',
           fontSize: '28px'
-        }
+        };
       }
       return element;
     }
