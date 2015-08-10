@@ -39,8 +39,19 @@ var defaultElements = {
 
   'gh:logo': {
     html: $(container).find('a.header-logo-invertocat')[0],
-    create: function(){
-      return this.html.cloneNode(true);
+    create: function(options){
+      var element = this.html.cloneNode(true);
+      if (options.icon) {
+        var icon = element.querySelector('.mega-octicon');
+        icon.className = 'mega-octicon octicon-' + options.icon;
+        icon.styles = {
+          float: 'left',
+          width: '28px',
+          height: '28px',
+          fontSize: '28px'
+        }
+      }
+      return element;
     }
   },
 
