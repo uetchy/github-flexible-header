@@ -2,6 +2,8 @@
 
 Customize Github header in JSON.
 
+![Screenshot](http://randompaper.co.s3.amazonaws.com/fgh-ss1.png)
+
 ```json
 [
   "gh:logo",
