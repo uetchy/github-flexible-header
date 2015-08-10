@@ -5,7 +5,7 @@ var zip = require('gulp-zip');
 var del = require('del');
 var jshint = require('gulp-jshint');
 var browserify = require('browserify');
-var manifest = require('gulp-chrome-manifest');
+var jeditor = require('gulp-json-editor');
 var livereload = require('gulp-livereload');
 var through2 = require('through2');
 
@@ -46,13 +46,15 @@ gulp.task('manifest', function() {
 });
 
 gulp.task('manifest-production', function() {
+  var npmPackage = require('./package.json');
   gulp.src('app/manifest.json')
-    .pipe(manifest({
+    .pipe(jeditor({
+      version: npmPackage.version,
       background: {
-        target: 'scripts/background.js'
+        scripts: ['scripts/background.js']
       }
     }))
-    .pipe(gulp.dest('build/'))
+    .pipe(gulp.dest('build/'));
 });
 
 // copy static assets to build directory
