@@ -44,7 +44,7 @@ gulp.task('manifest-production', function() {
 
 gulp.task('archive', ['scripts', 'copy', 'manifest-production'], function() {
   var manifest = require('./app/manifest.json'),
-    distFileName = 'flex-github-header' + ' v' + manifest.version + '.zip'
+    distFileName = 'github-flexible-header' + ' v' + manifest.version + '.zip'
 
   gulp.src(['build/**', '!build/scripts/**/*.map'])
     .pipe(zip(distFileName))

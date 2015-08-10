@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "Flex Github Header",
+    "message": "Github Flexible Header",
     "description": "The name of the application"
   },
   "appDescription": {
-    "message": "Customize github header with JSON",
+    "message": "Customize github header items in JSON",
     "description": "The description of the application"
   }
 }
