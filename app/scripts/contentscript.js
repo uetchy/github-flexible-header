@@ -1,6 +1,5 @@
 'use strict';
 
-var $ = require('jquery');
 var container = document.querySelector('.header > .container');
 var defaultConfigJson = JSON.stringify([
   'gh:logo',
@@ -20,7 +19,7 @@ var defaultConfigJson = JSON.stringify([
 ], null, 2);
 var defaultElements = {
   'gh:nav': {
-    html: $(container).find('ul.header-nav.left')[0],
+    html: container.querySelector('ul.header-nav.left'),
     create: function(children) {
       var element = this.html;
       element.innerHTML = '';
@@ -30,7 +29,7 @@ var defaultElements = {
   },
 
   'gh:user-nav': {
-    html: $(container).find('ul.header-nav.user-nav.right')[0],
+    html: container.querySelector('ul.header-nav.user-nav.right'),
     create: function(children) {
       var element = this.html;
       element.innerHTML = '';
@@ -40,7 +39,7 @@ var defaultElements = {
   },
 
   'gh:logo': {
-    html: $(container).find('a.header-logo-invertocat')[0],
+    html: container.querySelector('a.header-logo-invertocat'),
     create: function(options) {
       var element = this.html.cloneNode(true);
       if (options && options.hasOwnProperty('icon')) {
@@ -58,49 +57,49 @@ var defaultElements = {
   },
 
   'gh:search': {
-    html: $(container).find('div.site-search')[0],
+    html: container.querySelector('div.site-search'),
     create: function() {
       return this.html.cloneNode(true);
     }
   },
 
   'gh:pull-request': {
-    html: $(container).find('li:has(a[href="/pulls"])')[0],
+    html: container.querySelector('a[href="/pulls"]').parentElement,
     create: function() {
       return this.html.cloneNode(true);
     }
   },
 
   'gh:issues': {
-    html: $(container).find('li:has(a[href="/issues"])')[0],
+    html: container.querySelector('a[href="/issues"]').parentElement,
     create: function() {
       return this.html.cloneNode(true);
     }
   },
 
   'gh:gist': {
-    html: $(container).find('li:has(a[href="https://gist.github.com/"])')[0],
+    html: container.querySelector('a[href="https://gist.github.com/"]').parentElement,
     create: function() {
       return this.html.cloneNode(true);
     }
   },
 
   'gh:notifications': {
-    html: $(container).find('li:has(a[href="/notifications"])')[0],
+    html: container.querySelector('a[href="/notifications"]').parentElement.parentElement,
     create: function() {
       return this.html.cloneNode(true);
     }
   },
 
   'gh:new': {
-    html: $(container).find('li:has(a[href="/new"])')[0],
+    html: container.querySelector('a[href="/new"]').parentElement,
     create: function() {
       return this.html.cloneNode(true);
     }
   },
 
   'gh:user': {
-    html: $(container).find('li:has(a.header-nav-link.name)')[0],
+    html: container.querySelector('a.header-nav-link.name').parentElement,
     create: function() {
       return this.html.cloneNode(true);
     }
@@ -108,7 +107,9 @@ var defaultElements = {
 
   'link': {
     create: function(options) {
-      var element = $('<li class="header-nav-item"><a class="header-nav-link"></a></li>');
+      var element = document.createElement('li');
+      element.attr('class', 'header-nav-item');
+      element.appendChild(document.createElement('a').attr('class', 'header-nav-link'));
       var link = element.find('a');
       link.attr('href', options.href);
 
@@ -116,7 +117,8 @@ var defaultElements = {
         link.addClass('tooltipped');
         link.addClass('tooltipped-s');
         link.attr('aria-label', options.label);
-        var icon = $('<span class="octicon"></span>');
+        var icon = document.createElement('span');
+        element.attr('class', 'octicon');
         icon.addClass('octicon-' + options.icon);
         link.append(icon);
       } else {
